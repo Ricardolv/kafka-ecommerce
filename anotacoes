@@ -1,0 +1,64 @@
+# KAFKA: PRODUTORES, CONSUMIDORES E STREAMS
+
+
+# Executandoxcecutando zookepeer e a base de dados que o kafka utiliza.
+/path/bin/zookeeper-server-start.sh /#path/kafka/config/zookeeper.properties
+
+# Executando kafka o processador responsavel por realizar as comunicacoes.
+/path/bin/kafka-server-start.sh /#path/kafka/config/server.properties
+
+# Criando topico
+bin/kafka-topics.sh --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic LOJA_NOVO_PEDIDO
+
+# Listar topicos
+bin/kafka-topics.sh --list --bootstrap-server localhost:9092
+
+# Escrevendo uma mensagem no topico criado
+bin/kafka-console-producer.sh --broker-list localhost:9092 --topic LOJA_NOVO_PEDIDO
+>pedido0,550
+>pedido30,3500
+
+# Ler mensagem do topico criado a partir de uma nova mensagem  
+bin/kafka-console-consumer.sh  --bootstrap-server localhost:9092 --topic LOJA_NOVO_PEDIDO
+
+# Ler mensagem do topico criado desde da primeira mensagem armazernada no topico
+bin/kafka-console-consumer.sh  --bootstrap-server localhost:9092 --topic LOJA_NOVO_PEDIDO --from-beginning
+pedido0,550
+pedido30,3500
+
+# Descrever os topicos criados
+bin/kafka-topics.sh --bootstrap-server localhost:9092 --describe
+
+# Escutar mensagem de umnovo topico desde o inicio
+bin/kafka-console-consumer.sh  --bootstrap-server localhost:9092 --topic ECOMMERCE_NEW_ORDER --from-beginning
+
+# Alterando particao de um topico
+bin/kafka-topics.sh --alter --zookeeper localhost:2181 --topic ECOMMERCE_NEW_ORDER --partitions 3
+
+# Analisar grupos de consumo.
+bin/kafka-consumer-groups.sh --bootstrap-server localhost:9092 --describe --all-groups
+
+
+# Kafka: Fast delegate, evolução e cluster de brokers
+
+o problema do single point of failure
+a recuperação mais simples de um broker
+a recuperação e o rebalanceamento de um serviço
+como levantar mais um broker e rodar um cluster
+como efetuar a replicação
+o que é um líder
+a configuração do acks 0, 1 e all
+como utilizar garantias, reliability, velocidade, partições e replicação
+
+# Kafka: Batches, correlation ids e dead letters
+
+como verificar os retries
+onde estudar configurações importantes do produtor
+como implementar um dead letter simples
+
+# Kafka: Idempotência e garantias
+
+
+
+
+
